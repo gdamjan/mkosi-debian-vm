@@ -12,6 +12,3 @@ dpkg --root "$BUILDROOT" -i amazon-ssm-agent.deb
 
 # enable dhcp on all networks
 cp en.network "$BUILDROOT/etc/systemd/network/en.network"
-
-# enable passwordless sudo access to the amazon-ssm-agent user
-cp ssm-user.sudo "$BUILDROOT/etc/sudoers.d/ssm-user"
