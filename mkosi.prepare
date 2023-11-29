@@ -2,8 +2,13 @@
 
 set -e
 
-curl -LO https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_amd64/amazon-ssm-agent.deb
+[ "$1" -ne "final" ] && exit 0 # skip
 
 sed -i '/crontab/d' "$BUILDROOT/var/lib/dpkg/statoverride" # Why???
 
-dpkg --root $BUILDROOT -i amazon-ssm-agent.deb
+# https://docs.aws.amazon.com/systems-manager/latest/userguide/agent-install-deb.html
+curl -LO https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_amd64/amazon-ssm-agent.deb
+dpkg --root "$BUILDROOT" -i amazon-ssm-agent.deb
+
+# enabled dhcp on all networks
+cp en.network "$BUILDROOT/etc/systemd/network/en.network"
