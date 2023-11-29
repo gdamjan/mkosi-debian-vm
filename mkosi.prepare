@@ -9,6 +9,3 @@ sed -i '/crontab/d' "$BUILDROOT/var/lib/dpkg/statoverride" # Why???
 # https://docs.aws.amazon.com/systems-manager/latest/userguide/agent-install-deb.html
 curl -LO https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_amd64/amazon-ssm-agent.deb
 dpkg --root "$BUILDROOT" -i amazon-ssm-agent.deb
-
-# enable dhcp on all networks
-cp en.network "$BUILDROOT/etc/systemd/network/en.network"
