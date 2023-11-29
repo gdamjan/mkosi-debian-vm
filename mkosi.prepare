@@ -10,5 +10,8 @@ sed -i '/crontab/d' "$BUILDROOT/var/lib/dpkg/statoverride" # Why???
 curl -LO https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_amd64/amazon-ssm-agent.deb
 dpkg --root "$BUILDROOT" -i amazon-ssm-agent.deb
 
-# enabled dhcp on all networks
+# enable dhcp on all networks
 cp en.network "$BUILDROOT/etc/systemd/network/en.network"
+
+# enable passwordless sudo access to the amazon-ssm-agent user
+cp ssm-user.sudo "$BUILDROOT/etc/sudoers.d/ssm-user"
